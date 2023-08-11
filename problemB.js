@@ -5,39 +5,33 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const isEvenlySpaced = (line) => {
-    const blackPixelIndices = [];
-    for (let i = 0; i < line.length; i++) {
-        if (line[i] === '*') {
-            blackPixelIndices.push(i);
-        }
-    }
-    
-    const spacing = blackPixelIndices[1] - blackPixelIndices[0];
-    for (let i = 1; i < blackPixelIndices.length - 1; i++) {
-        if (blackPixelIndices[i + 1] - blackPixelIndices[i] !== spacing) {
-            return false;
-        }
-    }
-    
-    return true;
-};
+let n;
+const packets = [];
 
-const lines = [];
 rl.on('line', (line) => {
-    if (line === "END") {
-        rl.close();
+    if (!n) {
+        n = parseInt(line);
     } else {
-        lines.push(line);
+        const [arrivalTime, packetNumber] = line.split(' ').map(Number);
+        packets.push({ arrivalTime, packetNumber });
     }
 });
 
 rl.on('close', () => {
-    for (let i = 0; i < lines.length; i++) {
-        if (isEvenlySpaced(lines[i])) {
-            console.log(`${i + 1} EVEN`);
-        } else {
-            console.log(`${i + 1} NOT EVEN`);
+    packets.sort((a, b) => a.arrivalTime - b.arrivalTime);
+    
+    let currentTime = packets[0].arrivalTime;
+    let totalLagTime = 0;
+
+    for (const packet of packets) {
+        if (packet.arrivalTime > currentTime) {
+            totalLagTime += packet.arrivalTime - currentTime;
+            // console.log(totalLagTime)
+            currentTime = packet.arrivalTime;
         }
+
+        currentTime += 1; 
     }
+
+    console.log(totalLagTime);
 });
