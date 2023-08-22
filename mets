@@ -1,35 +1,23 @@
-import heapq
-
 class MedianCalculator:
     def __init__(self):
-        self.min_heap = []  # Stores the larger half of the numbers
-        self.max_heap = []  # Stores the smaller half of the numbers
+        self.numbers = []
 
     def add_number(self, num):
-        if not self.max_heap or num <= -self.max_heap[0]:
-            heapq.heappush(self.max_heap, -num)
-        else:
-            heapq.heappush(self.min_heap, num)
-
-        # Balance the heaps
-        if len(self.max_heap) > len(self.min_heap) + 1:
-            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
-        elif len(self.min_heap) > len(self.max_heap):
-            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+        self.numbers.append(num)
+        self.numbers.sort()
 
     def delete_number(self, num):
-        if num <= -self.max_heap[0]:
-            self.max_heap.remove(-num)
-            heapq.heapify(self.max_heap)
-        else:
-            self.min_heap.remove(num)
-            heapq.heapify(self.min_heap)
+        if num in self.numbers:
+            self.numbers.remove(num)
 
     def calculate_median(self):
-        if len(self.max_heap) == len(self.min_heap):
-            return (-self.max_heap[0] + self.min_heap[0]) / 2
+        n = len(self.numbers)
+        if n % 2 == 1:
+            return self.numbers[n // 2]
         else:
-            return -self.max_heap[0]
+            mid_right = n // 2
+            mid_left = mid_right - 1
+            return (self.numbers[mid_left] + self.numbers[mid_right]) / 2
 
 # Example usage
 median_calculator = MedianCalculator()
