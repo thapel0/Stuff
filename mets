@@ -1,30 +1,11 @@
-class MedianCalculator:
-    def __init__(self):
-        self.numbers = []
+At the animal rescue shelter where you volunteer, you've been tasked with figuring out how many unique dog breeds are currently at the shelter. You have access to a PostgreSQL database containing a Dogs table with the following columns:
 
-    def add_number(self, num):
-        self.numbers.append(num)
-        self.numbers.sort()
+  id int NOT NULL,
+  nickname varchar,
+  breed varchar,
+  age int
+Write a query that outputs the number of distinct dog breeds recorded in the database.
 
-    def delete_number(self, num):
-        if num in self.numbers:
-            self.numbers.remove(num)
+[execution time limit] 10 seconds (psql)
 
-    def calculate_median(self):
-        n = len(self.numbers)
-        if n % 2 == 1:
-            return self.numbers[n // 2]
-        else:
-            mid_right = n // 2
-            mid_left = mid_right - 1
-            return (self.numbers[mid_left] + self.numbers[mid_right]) / 2
-
-# Example usage
-median_calculator = MedianCalculator()
-median_calculator.add_number(5)
-median_calculator.add_number(10)
-median_calculator.add_number(2)
-print("Median:", median_calculator.calculate_median())  # Output: 5.0
-
-median_calculator.delete_number(10)
-print("Median:", median_calculator.calculate_median())  # Output: 3.5
+[memory limit] 1 GB
