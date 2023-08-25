@@ -1,25 +1,17 @@
-from datetime import datetime
+Scenario:
 
-def days_between(start_date, end_date):
-    start_date = datetime.strptime(start_date, '%m/%d/%Y')
-    end_date = datetime.strptime(end_date, '%m/%d/%Y')
-    delta = end_date - start_date
-    return delta.days
+Given the following starter code and data.csv file, complete the function so that it returns the mean daily return for July 2021. Your function should return a single value rounded to five decimal points.
 
-data = {
-    "dataset": {
-        "id": 42,
-        "frequency": "daily",
-        "type": "Time Series",
-        "date_range": {
-            "start_date": "3/19/2021",
-            "end_date": "3/27/2021"
-        }
-    }
-}
+Starter Code:
 
-start_date = data["dataset"]["date_range"]["start_date"]
-end_date = data["dataset"]["date_range"]["end_date"]
+import pandas as pd
+from data import data 
 
-days_difference = days_between(start_date, end_date)
-print(days_difference)  # This will output 8
+def calcMean():
+    df = pd.DataFrame(data)
+    df.set_index(
+        pd.to_datetime(
+            df['date'],
+            infer_datetime_format=True), 
+        inplace=True
+    )
