@@ -1,7 +1,10 @@
-Scenario:
-Given a data object like the one below, write a function named days_between that returns the number of days between the "end_date" and "start_date". In the example below, the function would return 8 as the number of days between "3/19/2021" and "3/27/2021".
+from datetime import datetime
 
-Example Dataset:
+def days_between(start_date, end_date):
+    start_date = datetime.strptime(start_date, '%m/%d/%Y')
+    end_date = datetime.strptime(end_date, '%m/%d/%Y')
+    delta = end_date - start_date
+    return delta.days
 
 data = {
     "dataset": {
@@ -15,4 +18,8 @@ data = {
     }
 }
 
-Hint: You can use the Python datetime module to calculate the time delta between two dates.
+start_date = data["dataset"]["date_range"]["start_date"]
+end_date = data["dataset"]["date_range"]["end_date"]
+
+days_difference = days_between(start_date, end_date)
+print(days_difference)  # This will output 8
