@@ -1,11 +1,18 @@
-At the animal rescue shelter where you volunteer, you've been tasked with figuring out how many unique dog breeds are currently at the shelter. You have access to a PostgreSQL database containing a Dogs table with the following columns:
+Scenario:
+Given a data object like the one below, write a function named days_between that returns the number of days between the "end_date" and "start_date". In the example below, the function would return 8 as the number of days between "3/19/2021" and "3/27/2021".
 
-  id int NOT NULL,
-  nickname varchar,
-  breed varchar,
-  age int
-Write a query that outputs the number of distinct dog breeds recorded in the database.
+Example Dataset:
 
-[execution time limit] 10 seconds (psql)
+data = {
+    "dataset": {
+        "id": 42,
+        "frequency": "daily",
+        "type": "Time Series",
+        "date_range": {
+            "start_date": "3/19/2021",
+            "end_date": "3/27/2021"
+        }
+    }
+}
 
-[memory limit] 1 GB
+Hint: You can use the Python datetime module to calculate the time delta between two dates.
