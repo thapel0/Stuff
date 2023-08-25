@@ -1,0 +1,35 @@
+import pandas as pd
+
+data = [
+  {
+    "date": "2021-07-02",
+    "ticker": "RETB",
+    "daily_return": -0.02
+  },
+  {
+    "date": "2021-07-02",
+    "ticker": "KIFS",
+    "daily_return": -0.03
+  },
+  # ... more data ...
+]
+
+def calcMean():
+    df = pd.DataFrame(data)
+    df.set_index(
+        pd.to_datetime(
+            df['date'],
+            infer_datetime_format=True), 
+        inplace=True
+    )
+    
+    # Filter data for July 2021
+    july_2021_data = df['2021-07-01':'2021-07-31']
+    
+    # Calculate mean of daily returns
+    mean_return = july_2021_data['daily_return'].mean()
+    
+    return round(mean_return, 5)
+
+mean_daily_return = calcMean()
+print(mean_daily_return)
